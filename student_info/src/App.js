@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-import StudentArrayPage from "./pages/StudentArrayPage";
-import StudentArrayPage2 from "./pages/StudentArrayPage2";
-import StudentPage from "./pages/StudentPage";
-
-function App() {
-  return (
-    <StudentArrayPage2 />
-=======
-=======
->>>>>>> fbeb94eebaedcb6981c896794888c768d6a43b65
-import { useEffect, useRef, useState } from "react";
-import InfoInput from "./Components/InfoInput";
-import StudentInfo from "./Components/StudentInfo";
-import InfoButtons from "./Components/InfoButtons";
-
 function App() {
   
   // const [ name, setName ] = useState("");
@@ -138,10 +120,6 @@ function App() {
     <button onClick={ handleOnClean }>비우기</button>
     </InfoButtons>
    </>
-<<<<<<< HEAD
->>>>>>> fbeb94eebaedcb6981c896794888c768d6a43b65
-=======
->>>>>>> fbeb94eebaedcb6981c896794888c768d6a43b65
   );
 }
 
