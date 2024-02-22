@@ -1,126 +1,46 @@
+import React, { useState } from "react";
+import Memoization from "./pages/Memoization";
+import { Link, Route, Routes } from "react-router-dom";
+import StudentPage from "./pages/StudentPage";
+import StudentArrayPage from "./pages/StudentArrayPage";
+import StudentArrayPage3 from "./pages/StudentArrayPage3";
+import StudentArrayPage2 from "./pages/StudentArrayPage2";
+import Params from "./pages/Params";
+import SearchPage from "./pages/SearchPage";
+import ProductPage from "./pages/ProductPage";
+import SubRoute from "./pages/SubRoute";
+
 function App() {
-  
-  // const [ name, setName ] = useState("");
-  // const [ age, setAge ] = useState("");
-  // const [ address, setAddress ] = useState("");
-  const studentObj = {
-    name: "",
-    age: "",
-    address: ""
-  }
+  const [ value, setValue ] = useState("");
 
-  const [ student, setStudent] = useState(studentObj);
-  const [ inputValues, setInputValues ] = useState(studentObj);
-  const inputRef = {
-    name: useRef(),
-    age: useRef(),
-    address: useRef()
-  }
+  return(
+    <>
+      <input type="text" onChange={(e) => setValue(e.target.value)}/>
+      <ul>
+        <Link to="/memoization"><li>메모이제이션</li></Link>
+        <Link to="/st"><li>학생정보</li></Link>
+        <Link to="/sta1"><li>학생들정보1</li></Link>
+        <Link to="/sta3"><li>학생들정보3</li></Link>
+        <Link to={`/p?data=${value}`}><li>파람스</li></Link>
+        <Link to={`/books?bookName=${value}`}><li>도서검색</li></Link>
 
-  useEffect(() => {
-    // console.log(inputRef.name.current);
-  })
+      </ul>
+      <Routes>
+        // path 링크 주소 
+        <Route path="/memoization" element={ <Memoization /> } /> 
+        <Route path="/st" element={ <StudentPage /> } /> 
+        <Route path="/sta1" element={ <StudentArrayPage /> } /> 
+        <Route path="/sta2" element={ <StudentArrayPage2 /> } /> 
+        <Route path="/sta3" element={ <StudentArrayPage3 /> } /> 
+        <Route path="/p" element={ <Params /> } /> 
+        <Route path="/books" element={ <SearchPage /> } /> 
+        <Route path="/product/:productId" element={ <ProductPage /> } />  
+        <Route path="/sub/*" element={ <SubRoute /> } />  
+      </Routes>
+      
+    </>
+  )
 
-  useEffect(() => {
-      setInputValues(studentObj);
-  }, [student]);  //[student] 의 상태가 바뀌면 useEffect 실행 , 최초로 한번은 실행함
-
-  let email = "email";
-  let phone = "01099881916";
-
-  let user = {
-    "username": "test",
-    "password": "1234",
-    [email]: "test",
-    phone
-  }
-  /**
-   * js객체 특징
-   * 1. 키 값은 문자열이어도 된다.
-   * 2. 변수의 문자열 값을 키값으로 쓰고 싶을 때 []대괄호로 묶어서 참조할 수 있다.
-   * 3. 변수명만 입력하면 객체의 속성과 value로 한번에 정의할 수 있다.
-   */
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    
-    // switch(name) {
-    //   case "name" :
-    //     setName(value);
-    //     break;
-    //   case "age" :
-    //     setAge(value);
-    //     break;
-    //   case "address" :
-    //     setAddress(value);
-    //     break;
-    //   default:
-    //     console.log();
-    // }
-
-    // if(name === "name") {
-    //   inputValues.name = value;
-    // } else if(name === "age") {
-    //   inputValues.age = value;
-    // } else {
-    //   inputValues.address = value;
-    // }
-
-    // 
-    setInputValues ({
-      ...inputValues,
-      [name]: value   
-    })
-
-  }
-
-  const handleOnOk = () => {
-      setStudent(inputValues);
-  }
-  const handleOnClean = () => {
-    setStudent(studentObj);
-  }
-
-  return (
-   <>
-    <StudentInfo title="이름" text={student.name}/>
-    <StudentInfo title="나이" text={student.age}/>
-    <StudentInfo title="주소" text={student.address}/>
-    {/* <h1>이름: {student.name}</h1>
-    <h1>나이: {student.age}</h1>
-    <h1>주소: {student.address}</h1> */}
-
-    <InfoInput 
-    name={"name"}
-    onChange={handleInputChange}
-    value={inputValues.name}
-    placeholder='이름'
-    inputRef={inputRef.name}
-    />
-    <InfoInput 
-    name={"age"}
-    onChange={handleInputChange}
-    value={inputValues.age}
-    placeholder='나이'
-    inputRef={inputRef.age}
-    />
-    <InfoInput 
-    name={"address"}
-    onChange={handleInputChange}
-    value={inputValues.address}
-    placeholder='주소'
-    inputRef={inputRef.address}
-    />
-    {/* <input type="text" name="name" onChange={handleInputChange} value={inputValues.name} placeholder="이름"/>
-    <input type="text" name="age" onChange={handleInputChange} value={inputValues.age} placeholder="나이"/>
-    <input type="text" name="address" onChange={handleInputChange} value={inputValues.address} placeholder="주소"/> */}
-
-    <InfoButtons>
-    <button onClick={ handleOnOk }>확인</button>
-    <button onClick={ handleOnClean }>비우기</button>
-    </InfoButtons>
-   </>
-  );
 }
 
 export default App;
