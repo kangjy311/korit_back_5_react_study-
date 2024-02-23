@@ -3,13 +3,14 @@ import { css } from "@emotion/react";
 export const layout = (isShow) => css`
     box-sizing: border-box;
     position: fixed;
-    top: 0;
-    left: ${isShow ? "0px" : "-300px"};
+    top: ${isShow ? "0px" : "-80px"};
+    right: 0;
     z-index: 99;
-    border-right: 1px solid #dbdbdb;
-    width: 300px;
-    height: 100%;
-    transition: left 0.5s ease-in-out;
+    border-bottom: 1px solid #dbdbdb;
+    border-left: 1px solid #dbdbdb;
+    width: 50%;
+    height: 80px;
+    transition: all 0.5s ease-in-out;
     background-color: white;
     box-shadow: 1px 0px 5px #00000022;
 `;
@@ -17,18 +18,18 @@ export const layout = (isShow) => css`
 export const toggleButton = css`
     box-sizing: border-box;
     position: absolute;
-    transform: translateY(-50%);
-    top: 50%;
-    right: -15px;
+    right: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 80px;
     padding: 0;
     border: 1px solid #dbdbdb;
-    border-top-right-radius: 8px;
+    border-top: 0px;
     border-bottom-right-radius: 8px;
-    width: 15px;
-    height: 50px;
+    border-bottom-left-radius: 8px;
+    width: 50px;
+    height: 15px;
     background-color: white;
     cursor: pointer;
     &:hover {
@@ -41,9 +42,10 @@ export const toggleButton = css`
 
 export const menuList = css`
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px 0px;
+    flex-direction: row;
+    padding: 15px 0px;
 `;
 
 export const menuItem = css`
@@ -51,17 +53,14 @@ export const menuItem = css`
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border-bottom: 1px solid #dbdbdb;
-    width: 100%;
+    margin: 0px 10px;
+    border: 1px solid #dbdbdb;
+    width: 200px;
     height: 50px;
     color: black;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    &:nth-of-type(1) {
-        border-top: 1px solid #dbdbdb;
-    }
     &:hover {
         background-color: #eee;
     }
