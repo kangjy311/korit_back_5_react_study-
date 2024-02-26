@@ -26,7 +26,7 @@ function Mypage(props) {
             <div css={S.profileHeader}>
                 <h1 css={S.title}>마이페이지</h1>
                 <div css={S.profileImg} onClick={() => imgFileRef.current.click()}>
-                    <img src={preview} alt="" />
+                    <img src={preview} alt="" />    
                     <input style={{display: "none"}} type="file" ref={imgFileRef} onChange={handleImgFileChange}/>
                 </div>
                 <div css={S.nicknameLayout}>

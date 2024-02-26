@@ -5,6 +5,8 @@ import SideBar from './components/SideBar/SideBar';
 import SideBarTop from './components/SideBarTop/SideBarTop';
 import RootLayout from './components/RootLayout/RootLayout';
 import Mypage from './pages/Mypage/Mypage';
+import { MENUS } from './constants/menu';
+import ImageEx from './pages/imageEx/ImageEx';
 
 function App() {
   return (
@@ -13,10 +15,9 @@ function App() {
       <SideBarTop />
       <SideBar />
       <RootLayout>  {/* children 써줘야 Routes들어옴 */}
+      <ImageEx />
         <Routes>
-          <Route path='/mypage' element={<Mypage />}/>
-          <Route path='/board'element={<>게시판</>}/>
-          <Route path='/notice'element={<>공지사항</>}/>
+          {MENUS.map(menu => <Route key={menu.id} path={menu.path} element={menu.element} />)}
         </Routes>
       </RootLayout>
     </>
