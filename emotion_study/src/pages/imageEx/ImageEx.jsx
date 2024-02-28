@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-
 import { css } from "@emotion/react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";

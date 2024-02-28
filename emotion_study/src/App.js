@@ -15,7 +15,6 @@ function App() {
       <SideBarTop />
       <SideBar />
       <RootLayout>  {/* children 써줘야 Routes들어옴 */}
-      <ImageEx />
         <Routes>
           {MENUS.map(menu => <Route key={menu.id} path={menu.path} element={menu.element} />)}
         </Routes>
