@@ -54,17 +54,22 @@ function BoardWrite() {
     const navigate = useNavigate();
 
     // <input />  hook함수
-    const [ inputValue, handleInputChange ] = useMaxSizeValidateInput(10);
+    const [ inputValue, handleInputChange ] = useMaxSizeValidateInput(20);
     const [ quillValue, handleQuillValueChange ] = useQuillInput();
     const { boardList, lastId } = useLoadList(); 
 
     const handleSubmitClick = () => {
-        const board = {
-            boardId: lastId + 1,
-            boardTitle: inputValue,
-            boardContent: quillValue
-        };
-        const newBoardList = [...boardList, board];
+        let newBoardList = [];
+        
+        for(let i = 0; i < 203; i++) {
+
+            const board = {
+                boardId: i + 1,
+                boardTitle: inputValue + (i + 1),
+                boardContent: quillValue
+            };
+            newBoardList = [...newBoardList, board];
+        }
         localStorage.setItem("boardList", JSON.stringify(newBoardList));
         alert("글 작성 완료.");
         // window.location.replace();  // 사용x 렌더링을 새로 해버림 , useNavigate사용
