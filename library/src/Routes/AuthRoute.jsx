@@ -9,6 +9,7 @@ import { GridLoader } from 'react-spinners';
 import FullSizeLoader from '../components/FullSizeLoader/FullSizeLoader';
 import MyPage from '../pages/MyPage/MyPage';
 import PageContainer from '../components/PageContainer/PageContainer';
+import PasswordEditPage from '../pages/PasswordEditPage/PasswordEditPage';
 
 /**     useQuery
  * 
@@ -56,6 +57,7 @@ function AuthRoute(props) {
                         <Route path="/auth/*" element={<AuthPage />} />
                         <Route path="/" element={<HomePage />} />
                         <Route path="/account/mypage" element={<MyPage />} />
+                        <Route path="/account/edit/password" element={<PasswordEditPage />} />
                     </Routes>
                 }
             </PageContainer>
