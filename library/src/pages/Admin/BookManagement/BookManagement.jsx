@@ -10,8 +10,9 @@ import { useBookRegisterInput } from "../../../hooks/useBookRegisterInput";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../apis/firebase/config/firebaseConfig";
 import { v4 as uuid } from "uuid";
-import RightTopButton from "../../../components/RightTopButton/RightTopButton"
+import RightTopButton from "../../../components/RightTopButton/RightTopButton";
 import { registerBook } from "../../../apis/api/bookApi";
+import AdminBookSearch from "../../../components/AdminBookSearch/AdminBookSearch";
 
 function BookManagement(props) {
     const [ bookTypeOptions, setBookTypeOptions ] = useState([]);
@@ -38,7 +39,7 @@ function BookManagement(props) {
                         value: bookType.bookTypeId,
                         label: bookType.bookTypeName
                     }
-                }))
+                }));
             },
             retry: 0,
             refetchOnWindowFocus: false
@@ -55,7 +56,7 @@ function BookManagement(props) {
                         value: category.categoryId,
                         label: category.categoryName
                     }
-                }))
+                }));
             },
             retry: 0,
             refetchOnWindowFocus: false
@@ -69,16 +70,15 @@ function BookManagement(props) {
 
         },
         onError: error => {
-            
+
         }
-    })
+    }); 
 
     const nextInput = (ref) => {
         ref.current.focus();
     }
-    
+
     const submit = () => {
-        // 저장 요청
         registerBookMutation.mutate({
             isbn: isbn.value,
             bookTypeId: bookTypeId.value,
@@ -87,7 +87,7 @@ function BookManagement(props) {
             authorName: authorName.value,
             publisherName: publisherName.value,
             coverImgUrl: imgUrl.value
-        })
+        });
     }
 
     const bookId = useBookRegisterInput(nextInput, inputRefs[1]);
@@ -100,7 +100,7 @@ function BookManagement(props) {
     const imgUrl = useBookRegisterInput(submit);
 
     const selectStyle = {
-        control: (baseStyles) => ({
+        control: baseStyles => ({
             ...baseStyles,
             borderRadius: "0px",
             border: "none",
@@ -120,7 +120,7 @@ function BookManagement(props) {
         
         if(!window.confirm("파일을 업로드 하시겠습니까?")) {
             e.target.value = "";
-            return;    
+            return;
         }
 
         const storageRef = ref(storage, `library/book/cover/${uuid()}_${files[0].name}`);
@@ -131,7 +131,7 @@ function BookManagement(props) {
             snapshot => {},
             error => {},
             () => {
-                alert("업로드를 완료하였습니다.");
+                alert("업로드를 완료하셨습니다.");
                 getDownloadURL(storageRef)
                 .then(url => {
                     imgUrl.setValue(() => url);
@@ -140,6 +140,7 @@ function BookManagement(props) {
         )
 
     }
+
 
     return (
         <div css={s.layout}>
@@ -154,7 +155,7 @@ function BookManagement(props) {
                             <th css={s.registerTh}>도서코드</th>
                             <td>
                                 <BookRegisterInput 
-                                    value={bookId.value}
+                                    value={bookId.value} 
                                     bookref={inputRefs[0]}
                                     onChange={bookId.handleOnChange}
                                     onKeyDown={bookId.handleOnKeyDown}
@@ -163,7 +164,7 @@ function BookManagement(props) {
                             <th css={s.registerTh}>ISBN</th>
                             <td>
                                 <BookRegisterInput 
-                                    value={isbn.value}
+                                    value={isbn.value} 
                                     bookref={inputRefs[1]}
                                     onChange={isbn.handleOnChange}
                                     onKeyDown={isbn.handleOnKeyDown}
@@ -205,7 +206,7 @@ function BookManagement(props) {
                             <th css={s.registerTh}>도서명</th>
                             <td colSpan={3}>
                                 <BookRegisterInput 
-                                    value={bookName.value}
+                                    value={bookName.value} 
                                     bookref={inputRefs[4]}
                                     onChange={bookName.handleOnChange}
                                     onKeyDown={bookName.handleOnKeyDown}
@@ -216,7 +217,7 @@ function BookManagement(props) {
                             <th css={s.registerTh}>저자명</th>
                             <td>
                                 <BookRegisterInput 
-                                    value={authorName.value}
+                                    value={authorName.value} 
                                     bookref={inputRefs[5]}
                                     onChange={authorName.handleOnChange}
                                     onKeyDown={authorName.handleOnKeyDown}
@@ -225,10 +226,10 @@ function BookManagement(props) {
                             <th css={s.registerTh}>출판사</th>
                             <td>
                                 <BookRegisterInput 
-                                     value={publisherName.value}
-                                     bookref={inputRefs[6]}
-                                     onChange={publisherName.handleOnChange}
-                                     onKeyDown={publisherName.handleOnKeyDown}
+                                    value={publisherName.value} 
+                                    bookref={inputRefs[6]}
+                                    onChange={publisherName.handleOnChange}
+                                    onKeyDown={publisherName.handleOnKeyDown}
                                 />
                             </td>
                         </tr>
@@ -238,7 +239,7 @@ function BookManagement(props) {
                                 <div css={s.imgUrl}>
                                     <span css={s.imgUrlBox}>
                                         <BookRegisterInput 
-                                            value={imgUrl.value}
+                                            value={imgUrl.value} 
                                             bookref={inputRefs[7]}
                                             onChange={imgUrl.handleOnChange}
                                             onKeyDown={imgUrl.handleOnKeyDown}
@@ -246,9 +247,11 @@ function BookManagement(props) {
                                     </span>
                                     <input 
                                         type="file" 
-                                        style={{display: "none"}}
+                                        style={{
+                                            display: "none"
+                                        }}
                                         onChange={handleFileChange}
-                                        ref={fileRef}    
+                                        ref={fileRef}
                                     />
                                     <button css={s.imgAddButton} onClick={() => fileRef.current.click()}>
                                         <CiSquarePlus />
@@ -258,9 +261,12 @@ function BookManagement(props) {
                         </tr>
                     </tbody>
                 </table>
-                <div></div>
             </div>
-            
+            <AdminBookSearch 
+                selectStyle={selectStyle} 
+                bookTypeOptions={bookTypeOptions}
+                categoryOptions={categoryOptions}
+            />
         </div>
     );
 }
