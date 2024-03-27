@@ -4,7 +4,7 @@ export const useBookRegisterInput = (enterFx, ref) => {
     const [ value, setValue ] = useState("");
 
     const handleOnChange = (e) => {
-        if(!!e.tartget) {
+        if(!!e.target) {
             setValue(() => e.target.value);
         } else {
             setValue(() => e.value);
