@@ -1,19 +1,19 @@
 import { useState } from "react"
 
-export const useBookRegisterInput = (enterFx, ref) => {
+export const useBookRegisterInput = (enterFn, ref) => {
     const [ value, setValue ] = useState("");
 
     const handleOnChange = (e) => {
         if(!!e.target) {
             setValue(() => e.target.value);
         } else {
-            setValue(() => e.value);
+            setValue(() => e);
         }
     }
 
     const handleOnKeyDown = (e) => {
         if(e.keyCode === 13) {
-            enterFx(ref);
+            enterFn(ref);
         }
     }
 

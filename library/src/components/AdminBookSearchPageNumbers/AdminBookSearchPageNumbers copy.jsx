@@ -2,7 +2,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import * as s from "./style";
 import { useEffect, useState } from "react";
-import { getBookCountRequest } from "../../apis/api/bookApi";
 
 function AdminBookSearchPageNumbers({ bookCount }) {
     const [ searchParams ] = useSearchParams();
@@ -18,8 +17,8 @@ function AdminBookSearchPageNumbers({ bookCount }) {
         for(let i = startPageNumber; i <= endPageNumber; i++) {
             pageNumbers = [...pageNumbers, i];
         }
-
         setNumbers(() => pageNumbers);
+
     }, [page, bookCount])
 
     return (
@@ -27,10 +26,7 @@ function AdminBookSearchPageNumbers({ bookCount }) {
             <div css={s.pageNumbers}>
                 {
                     page !== 1 &&
-                    <Link 
-                        css={s.pageButton(false)}
-                        to={`/admin/book/management?page=${page - 1}`}
-                    >&#60;</Link>
+                    <Link css={s.pageButton(false)}  to={`/admin/book/management?page=${page - 1}`} >&#60;</Link>
                 }
                 {
                     numbers.map(number =>
@@ -39,15 +35,12 @@ function AdminBookSearchPageNumbers({ bookCount }) {
                 }
                 {
                     page !== maxPageNumber &&
-                    <Link 
-                        css={s.pageButton(false)}
-                        to={`/admin/book/management?page=${page + 1}`}
-                    >&#62;</Link>
+                    <Link css={s.pageButton(false)}  to={`/admin/book/management?page=${page + 1}`}>&#62;</Link>
                 }
             </div>
             <div css={s.pageCount}>
                 <div css={s.page}>Page {page} of {maxPageNumber}</div>
-                <div css={s.count}>Count: {bookCount.totalCount}</div>
+                <div css={s.count}>count: {bookCount.totalCount}</div>
             </div>
         </div>
     );

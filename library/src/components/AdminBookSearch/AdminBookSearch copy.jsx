@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Select from "react-select";
 import * as s from "./style";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useEffect, useRef, useState } from "react";
 import { useReactSelect } from "../../hooks/useReactSelect";
 import { useBookRegisterInput } from "../../hooks/useBookRegisterInput";
@@ -11,13 +11,13 @@ import AdminBookSearchPageNumbers from "../AdminBookSearchPageNumbers/AdminBookS
 import { useRecoilState } from "recoil";
 import { selectedBookState } from "../../atoms/adminSelectedBookAtom";
 
-function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions, isDelete, setDelete  }) {
+function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions, isDelete, setDelete }) {
     const [ searchParams, setSearchParams ] = useSearchParams();
     const searchCount = 20;
     const [ bookList, setBookList ] = useState([]);
     const [ checkAll, setCheckAll ] = useState({
         checked: false,
-        target: 1   // 1 => 전체 선택, 2 => 부분 선택
+        target: 1   // 1 : 전체 선택, 2 : 부분 선택
     });
     const [ selectedBook, setSelectedBook ] = useRecoilState(selectedBookState);
     const [ lastCheckBookId, setLastCheckBookId ] = useState(0);
@@ -66,8 +66,7 @@ function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions, isDele
         mutationKey: "deleteBooksMutation",
         mutationFn: deleteBooksRequest,
         onSuccess: response => {
-            alert("삭제완료");
-            window.location.replace("/admin/book/management?page=1")
+
         }
     })
 
@@ -78,7 +77,7 @@ function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions, isDele
         }
         setDelete(() => false);
     }, [isDelete])
-    
+
     const searchSubmit = () => {
         setSearchParams({
             page: 1
@@ -152,10 +151,10 @@ function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions, isDele
     }, [bookList]);
 
     useEffect(() => {
-        let lastSeletedBook = {...selectedBook};
+        let lastSelectedBook = {...selectedBook};
         let checkStatus = false;
-        lastSeletedBook = bookList.filter(book => book.bookId === lastCheckBookId && book.checked === true)[0];
-        if(!!lastSeletedBook) {
+        lastSelectedBook = bookList.filter(book => book.bookId === lastCheckBookId && book.checked === true)[0];
+        if(!!lastSelectedBook) {
             checkStatus = true;
         }
 
@@ -173,7 +172,7 @@ function AdminBookSearch({ selectStyle, bookTypeOptions, categoryOptions, isDele
                 coverImgUrl: ""
             }));
         } else {
-            setSelectedBook(() => lastSeletedBook);
+            setSelectedBook(() => lastSelectedBook);
         }
 
     }, [bookList]);
